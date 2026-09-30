@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<link rel="manifest" href="manifest.json" />
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#5e35b1" />
+
+<title>Gold Price BD | সোনার দাম ও ক্যারেট ক্যালকুলেটর | GoldAdjustment</title>
+
+<meta name="description" content="আজকের সোনার দাম (Gold Price Today BD), ২১K ২২K ২৪K ক্যারেটের দাম, সোনার হিসাব ও ক্যারেট ক্যালকুলেটর।" />
+<meta name="keywords" content="gold price, gold price bd, gold price today, gold rate bd, bangladesh gold price, আজকের সোনার দাম, সোনার দাম, সোনার হিসাব, স্বর্ণ ক্যালকুলেটর" />
+<meta name="author" content="M.A.Ahad" />
+<meta name="robots" content="index, follow" />
+
+<meta property="og:title" content="Gold Price BD | সোনার দাম ও ক্যারেট ক্যালকুলেটর" />
+<meta property="og:description" content="আজকের সোনার দাম, ক্যারেট হিসাব, ভরি-আনা-রতি, সোনার মজুরি — সব এক অ্যাপে।" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://maahad01618-collab.github.io/goldadjustment-android/" />
+<meta property="og:image" content="https://maahad01618-collab.github.io/goldadjustment-android/icon-512.png" />
+<meta property="og:locale" content="bn_BD" />
+<meta property="og:site_name" content="GoldAdjustment" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Gold Price BD | সোনার দাম ও ক্যারেট ক্যালকুলেটর" />
+<meta name="twitter:description" content="আজকের সোনার দাম, ক্যারেট হিসাব, ভরি-আনা-রতি, সোনার মজুরি।" />
+<meta name="twitter:image" content="https://maahad01618-collab.github.io/goldadjustment-android/icon-512.png" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "GoldAdjustment",
+  "alternateName": "Gold Price BD",
+  "description": "আজকের সোনার দাম (Gold Price Today BD), সোনার হিসাব, ক্যারেট ক্যালকুলেটর ও অ্যাডজাস্টমেন্ট অ্যাপ",
+  "url": "https://maahad01618-collab.github.io/goldadjustment-android/",
+  "image": "https://maahad01618-collab.github.io/goldadjustment-android/icon-512.png",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web, Android, iOS",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BDT" },
+  "author": { "@type": "Person", "name": "M.A.Ahad" },
+  "inLanguage": "bn"
+}
+</script>
+
+<style>
+    * {
+        margin: 0; padding: 0; box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+    }
+
+    html, body {
+        height: 100%;
+        overflow: hidden;
+        overscroll-behavior: none;
+        background: #f0f2f5;
+        color: #333;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        height: 100vh;
+        height: 100dvh;
+        position: fixed;
+        width: 100%;
+    }
+
+    .seo-h1 { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; }
+
+    #appContainer {
+        width: 100%;
+        max-width: 480px;
+        height: 100vh;
+        height: 100dvh;
+        background: #f0f2f5;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 0 40px rgba(0,0,0,0.08);
+    }
+
+    .app-header {
+        background: linear-gradient(135deg, #5e35b1 0%, #4527a0 100%);
+        color: #fff;
+        padding: 14px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-shrink: 0;
+        box-shadow: 0 2px 10px rgba(94,53,177,0.25);
+        position: relative;
+        z-index: 10;
+        padding-top: calc(14px + env(safe-area-inset-top, 0px));
+    }
+    .app-header .header-left { display: flex; align-items: center; gap: 10px; }
+    .app-header .logo-circle {
+        width: 40px; height: 40px;
+        background: rgba(255,255,255,0.95);
+        border-radius: 12px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 22px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .app-header .header-text h1 { font-size: 17px; font-weight: 700; letter-spacing: 0.2px; }
+    .app-header .header-text p { font-size: 11px; opacity: 0.85; margin-top: 1px; }
+    .app-header .header-right {
+        width: 38px; height: 38px;
+        background: rgba(255,255,255,0.18);
+        border-radius: 12px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 18px; cursor: pointer;
+        transition: transform 0.15s, background 0.15s;
+        border: 1px solid rgba(255,255,255,0.25);
+    }
+    .app-header .header-right:active { transform: scale(0.9); background: rgba(255,255,255,0.35); }
+
+    .content-scroll {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        padding: 14px 14px 20px 14px;
+        scrollbar-width: none;
+    }
+    .content-scroll::-webkit-scrollbar { display: none; }
+
+    #dashboardScreen { display: flex; flex-direction: column; height: 100%; }
+
+    .primary-big-btn {
+        width: 100%;
+        background: linear-gradient(135deg, #5e35b1 0%, #4527a0 100%);
+        color: #fff; border: none;
+        border-radius: 18px;
+        padding: 16px 18px;
+        display: flex; align-items: center; gap: 14px;
+        font-size: 17px; font-weight: 700;
+        box-shadow: 0 6px 18px rgba(94,53,177,0.35);
+        cursor: pointer;
+        transition: transform 0.15s, box-shadow 0.15s;
+        margin-bottom: 14px;
+        text-align: left;
+        flex-shrink: 0;
+    }
+    .primary-big-btn:active { transform: scale(0.98); box-shadow: 0 3px 10px rgba(94,53,177,0.3); }
+    .primary-big-btn .icon-box {
+        width: 42px; height: 42px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 12px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 22px;
+    }
+    .primary-big-btn .btn-text { flex: 1; }
+
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 10px;
+        flex: 1;
+        min-height: 0;
+    }
+    .grid-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 10px 6px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        cursor: pointer;
+        transition: transform 0.15s, box-shadow 0.15s;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        border: 1px solid rgba(0,0,0,0.03);
+        min-height: 0;
+        overflow: hidden;
+    }
+    .grid-card:active { transform: scale(0.95); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+    .grid-card .card-icon { font-size: 24px; margin-bottom: 6px; display: block; line-height: 1; }
+    .grid-card .card-label { font-size: 11px; font-weight: 600; color: #444; line-height: 1.3; padding: 0 3px; }
+    .grid-card.calc-card {
+        grid-column: span 3;
+        background: linear-gradient(135deg, #5e35b1 0%, #4527a0 100%);
+        color: #fff;
+        box-shadow: 0 4px 14px rgba(94,53,177,0.35);
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+    }
+    .grid-card.calc-card .card-label { color: #fff; font-size: 14px; }
+    .grid-card.calc-card .card-icon { font-size: 22px; margin: 0; }
+
+    .admob-slot {
+        margin: 12px 0 0 0;
+        text-align: center;
+        min-height: 50px;
+        display: flex; align-items: center; justify-content: center;
+        overflow: hidden;
+        background: transparent;
+        flex-shrink: 0;
+    }
+    .admob-slot.admob-loaded {
+        background: #faf8ff;
+        border: 1px solid #e0d8f0;
+        border-radius: 12px;
+    }
+
+    .seo-keywords-footer {
+        font-size: 9px; color: #999; text-align: center;
+        margin-top: 10px; line-height: 1.5;
+        flex-shrink: 0;
+    }
+
+    .bottom-nav {
+        flex-shrink: 0;
+        background: linear-gradient(135deg, #5e35b1 0%, #4527a0 100%);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 8px 0 calc(8px + env(safe-area-inset-bottom, 0px)) 0;
+        box-shadow: 0 -4px 16px rgba(0,0,0,0.15);
+        z-index: 100;
+        border-radius: 20px 20px 0 0;
+    }
+    .nav-item {
+        display: flex; flex-direction: column; align-items: center; gap: 2px;
+        color: rgba(255,255,255,0.55);
+        font-size: 10px; font-weight: 600;
+        cursor: pointer;
+        transition: color 0.2s, transform 0.15s;
+        padding: 4px 14px; border-radius: 10px;
+    }
+    .nav-item.active { color: #fff; }
+    .nav-item:active { transform: scale(0.92); }
+    .nav-item .nav-icon { font-size: 18px; }
+
+    #featureScreen { display: none; }
+    #featureScreen.show { display: block; }
+
+    .feature-header {
+        display: flex; align-items: center; gap: 10px;
+        margin-bottom: 12px; padding-bottom: 10px;
+        border-bottom: 1px solid #e0e0e0;
+        position: sticky; top: 0;
+        background: #f0f2f5;
+        z-index: 5;
+        padding-top: 4px;
+    }
+    .back-btn {
+        background: #fff; color: #5e35b1;
+        border: 1px solid #d0c4e8;
+        border-radius: 10px;
+        padding: 8px 14px;
+        font-size: 13px; font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        transition: all 0.15s;
+        display: flex; align-items: center; gap: 5px;
+    }
+    .back-btn:active { transform: scale(0.95); background: #f5f0ff; }
+    .feature-header .feature-name { font-size: 16px; font-weight: 700; color: #5e35b1; }
+
+    .feature-box {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 18px 16px;
+        display: none;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        border: 1px solid rgba(0,0,0,0.03);
+        margin-bottom: 14px;
+    }
+    .feature-box.active { display: block; }
+    .feature-title {
+        font-weight: 700; font-size: 16px; color: #5e35b1;
+        margin-bottom: 14px; text-align: center;
+    }
+
+    .field-group {
+        background: #faf8ff;
+        border: 1px solid #e8e0f5;
+        border-radius: 14px;
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+    .field-group-title {
+        font-size: 12px;
+        color: #673ab7;
+        font-weight: 700;
+        margin-bottom: 10px;
+        display: flex; align-items: center; gap: 6px;
+    }
+
+    .input-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+    .input-row:last-child { margin-bottom: 0; }
+
+    .input-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .input-field label {
+        font-size: 10px;
+        color: #888;
+        font-weight: 700;
+        text-align: center;
+        letter-spacing: 0.3px;
+    }
+    .input-field input {
+        width: 100%;
+        padding: 10px 4px;
+        border: 1.5px solid #d0c4e8;
+        border-radius: 10px;
+        font-size: 15px;
+        background: #fff;
+        text-align: center;
+        font-weight: 700;
+        color: #333;
+        transition: border 0.15s, box-shadow 0.15s;
+        -moz-appearance: textfield;
+    }
+    .input-field input::-webkit-outer-spin-button,
+    .input-field input::-webkit-inner-spin-button {
+        -webkit-appearance: none; margin: 0;
+    }
+    .input-field input:focus {
+        outline: none;
+        border-color: #5e35b1;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(94,53,177,0.12);
+    }
+
+    .input-row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 8px;
+    }
+
+    .input-full {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 8px;
+    }
+    .input-full label {
+        font-size: 11px;
+        color: #888;
+        font-weight: 700;
+    }
+    .input-full input,
+    .input-full select {
+        width: 100%;
+        padding: 12px 12px;
+        border: 1.5px solid #d0c4e8;
+        border-radius: 12px;
+        font-size: 15px;
+        background: #fff;
+        font-weight: 700;
+        color: #333;
+        transition: border 0.15s, box-shadow 0.15s;
+    }
+    .input-full input:focus,
+    .input-full select:focus {
+        outline: none;
+        border-color: #5e35b1;
+        box-shadow: 0 0 0 3px rgba(94,53,177,0.12);
+    }
+
+    .btn {
+        background: linear-gradient(135deg, #5e35b1 0%, #4527a0 100%);
+        color: #fff; border: none;
+        padding: 14px;
+        border-radius: 14px;
+        font-size: 15px; font-weight: 700;
+        width: 100%;
+        margin: 14px 0 6px 0;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(94,53,177,0.3);
+        transition: transform 0.15s, box-shadow 0.15s;
+        letter-spacing: 0.3px;
+    }
+    .btn:active { transform: scale(0.97); box-shadow: 0 2px 6px rgba(94,53,177,0.3); }
+    .btn-secondary {
+        background: linear-gradient(135deg, #7e57c2 0%, #5e35b1 100%);
+        box-shadow: 0 4px 12px rgba(126,87,194,0.3);
+    }
+
+    .result-box {
+        background: #faf8ff;
+        border-radius: 14px;
+        padding: 14px;
+        font-size: 13px;
+        line-height: 1.9;
+        white-space: pre-wrap;
+        margin-top: 10px;
+        border: 1px solid #e0d8f0;
+        min-height: 44px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .print-btn {
+        background: #546e7a; color: #fff; border: none;
+        padding: 11px 14px;
+        border-radius: 12px;
+        font-size: 13px; font-weight: 700;
+        cursor: pointer;
+        margin-top: 10px;
+        width: 100%;
+        box-shadow: 0 4px 12px rgba(84,110,122,0.3);
+        transition: all 0.15s;
+        display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .print-btn:active { transform: scale(0.97); }
+    .print-btn .p-icon { font-size: 15px; }
+
+    .price-result {
+        background: linear-gradient(135deg, #faf8ff 0%, #f0ebff 100%);
+        border: 2px solid #5e35b1;
+        border-radius: 16px;
+        padding: 18px;
+        margin-top: 12px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(94,53,177,0.1);
+    }
+    .price-result .label { font-size: 12px; color: #888; margin-bottom: 4px; font-weight: 600; }
+    .price-result .amount {
+        font-size: 26px; font-weight: 800; color: #5e35b1;
+        letter-spacing: 0.5px;
+        word-break: break-all;
+    }
+    .price-result .sub-line {
+        font-size: 11px; color: #888; margin-top: 6px; font-weight: 600;
+    }
+
+    .chart-table-wrap {
+        overflow-x: auto;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        background: #fff;
+        border: 1px solid #e0d8f0;
+        -webkit-overflow-scrolling: touch;
+    }
+    .chart-table-wrap::-webkit-scrollbar { height: 4px; }
+    .chart-table-wrap::-webkit-scrollbar-thumb { background: #d0c4e8; border-radius: 4px; }
+    .chart-table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 320px; }
+    .chart-table thead th {
+        background: #5e35b1; color: #fff;
+        padding: 10px 6px; text-align: center;
+        font-weight: 700; font-size: 11px;
+        border-bottom: 2px solid #4527a0;
+    }
+    .chart-table tbody td {
+        padding: 8px 6px; text-align: center;
+        border-bottom: 1px solid #f0f0f0;
+        font-weight: 600; color: #444;
+        white-space: nowrap;
+    }
+    .chart-table tbody tr:nth-child(even) { background: #faf8ff; }
+    .chart-table tbody tr:nth-child(odd) { background: #ffffff; }
+    .chart-table tbody td:first-child {
+        font-weight: 700; color: #5e35b1; background: #f5f0ff;
+    }
+    .chart-table tbody td:nth-child(2) { color: #43a047; font-weight: 700; }
+    .chart-note {
+        margin-top: 12px; padding: 12px;
+        background: #faf8ff; border: 1px dashed #b39ddb;
+        border-radius: 10px; font-size: 11px;
+        color: #555; line-height: 1.7; font-weight: 600;
+    }
+    .chart-note b { color: #5e35b1; }
+
+    .live-rate-card {
+        display: block; text-decoration: none;
+        margin-bottom: 10px;
+        background: linear-gradient(145deg, #e8f5e9, #c8e6c9);
+        border: 1px solid #a5d6a7;
+        border-radius: 16px;
+        padding: 18px 10px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(46,125,50,0.15);
+        transition: transform 0.15s;
+    }
+    .live-rate-card:active { transform: scale(0.97); }
+    .live-rate-card .icon { font-size: 30px; display: block; margin-bottom: 6px; }
+    .live-rate-card .title { font-size: 15px; font-weight: 700; color: #2e7d32; }
+    .live-rate-card .sub { font-size: 11px; color: #43a047; margin-top: 4px; }
+
+    .about-hero {
+        text-align: center; padding: 18px 10px 16px 10px;
+        background: linear-gradient(145deg, #ede7f6, #d1c4e9);
+        border-radius: 18px; margin-bottom: 14px;
+    }
+    .about-hero .about-logo {
+        width: 64px; height: 64px;
+        background: linear-gradient(135deg, #5e35b1 0%, #4527a0 100%);
+        color: #fff; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 34px; margin: 0 auto 10px auto;
+        box-shadow: 0 6px 16px rgba(94,53,177,0.35);
+    }
+    .about-hero h2 { font-size: 19px; color: #4527a0; font-weight: 800; margin-bottom: 4px; }
+    .about-hero .ver { font-size: 11px; color: #673ab7; font-weight: 600; }
+    .about-hero .tagline { font-size: 12px; color: #555; margin-top: 8px; font-weight: 600; }
+
+    .about-section {
+        background: #fff; border-radius: 16px;
+        padding: 14px; margin-bottom: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        border: 1px solid rgba(0,0,0,0.03);
+    }
+    .about-section h3 {
+        font-size: 14px; color: #5e35b1; margin-bottom: 10px;
+        display: flex; align-items: center; gap: 8px; font-weight: 700;
+    }
+    .about-section p { font-size: 12px; color: #555; line-height: 1.8; font-weight: 500; }
+    .about-section ul { list-style: none; padding: 0; margin: 0; }
+    .about-section ul li {
+        font-size: 12px; color: #444; line-height: 1.9;
+        padding: 3px 0 3px 20px; position: relative; font-weight: 500;
+    }
+    .about-section ul li::before {
+        content: '✔'; position: absolute; left: 0;
+        color: #5e35b1; font-weight: 700;
+    }
+    .about-info-row {
+        display: flex; justify-content: space-between;
+        padding: 7px 0; border-bottom: 1px dashed #e0d8f0;
+        font-size: 12px;
+    }
+    .about-info-row:last-child { border-bottom: none; }
+    .about-info-row .k { color: #666; font-weight: 600; }
+    .about-info-row .v { color: #5e35b1; font-weight: 700; text-align: right; }
+    .about-info-row .v a { color: #5e35b1; text-decoration: none; }
+
+    .about-disclaimer {
+        background: #fff8e1; border: 1px solid #ffe082;
+        border-radius: 12px; padding: 12px 14px;
+        font-size: 11px; color: #795548;
+        line-height: 1.7; font-weight: 600;
+    }
+    .about-disclaimer b { color: #e65100; }
+
+    .about-footer-note {
+        text-align: center; font-size: 11px; color: #888;
+        margin: 16px 0 6px 0; font-weight: 600; line-height: 1.7;
+    }
+
+    .calculator {
+        width: 100%; max-width: 360px;
+        margin: 0 auto; background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        overflow: hidden; padding-bottom: 8px;
+        border: 1px solid #e0d8f0;
+    }
+    .calculator .display-container {
+        background: linear-gradient(135deg, #faf8ff 0%, #f0ebff 100%);
+        padding: 20px 16px 10px 16px;
+        display: flex; flex-direction: column; justify-content: flex-end;
+        min-height: 110px;
+        border-bottom: 1px solid #e0d8f0;
+    }
+    .calculator .expression {
+        font-size: 12px; color: #999; text-align: right;
+        min-height: 16px; margin-bottom: 4px;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .calculator .result {
+        font-size: 36px; font-weight: 700; color: #333;
+        text-align: right; word-wrap: break-word; word-break: break-all;
+        line-height: 1.1;
+    }
+    .calculator .memory-row {
+        display: grid; grid-template-columns: repeat(6, 1fr);
+        padding: 6px 10px; gap: 4px;
+    }
+    .calculator .memory-btn {
+        background: transparent; border: none;
+        font-size: 11px; color: #888; padding: 8px 0;
+        cursor: pointer; border-radius: 8px;
+        transition: all 0.15s; font-weight: 600;
+    }
+    .calculator .memory-btn:hover { background: #f0ebff; color: #5e35b1; }
+    .calculator .keypad {
+        display: grid; grid-template-columns: repeat(4, 1fr);
+        gap: 6px; padding: 0 10px 8px 10px;
+    }
+    .calculator button {
+        border: 1px solid #e0d8f0; background: #fff;
+        color: #333; font-size: 16px; padding: 14px 0;
+        border-radius: 12px; cursor: pointer;
+        transition: all 0.1s ease; outline: none; font-weight: 600;
+    }
+    .calculator button:active { background: #f0ebff; transform: scale(0.95); }
+    .calculator .operator {
+        color: #5e35b1; background: #f5f0ff; font-size: 17px;
+    }
+    .calculator .equal-btn {
+        background: linear-gradient(135deg, #5e35b1 0%, #4527a0 100%);
+        color: #fff; border: none; font-size: 20px;
+        box-shadow: 0 4px 12px rgba(94,53,177,0.3);
+    }
+    .calculator .equal-btn:active { transform: scale(0.95); }
+
+    #toast {
+        position: fixed; top: 20px; left: 50%;
+        transform: translateX(-50%) translateY(-100px);
+        background: #323232; color: white;
+        padding: 12px 24px; border-radius: 12px;
+        font-size: 13px; font-weight: 600;
+        z-index: 99999;
+        transition: transform 0.3s ease;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        max-width: 90%; text-align: center;
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+    #toast.success { background: #43a047; }
+    #toast.error { background: #e53935; }
+    #toast.info { background: #1e88e5; }
+
+    @page { size: A5 landscape; margin: 0; }
+    @media print {
+        body * { visibility: hidden; }
+        #printArea, #printArea * { visibility: visible; }
+        #printArea {
+            position: absolute; left: 0; top: 0;
+            width: 100%; padding: 27.94mm 10mm 10mm 10mm;
+            background: #fff; box-sizing: border-box;
+        }
+        .print-header {
+            text-align: center; margin-bottom: 10px;
+            border-bottom: 2px solid #b8860b; padding-bottom: 6px;
+        }
+        .print-header h2 { color: #b8860b; font-size: 20px; }
+        .print-header .sub { font-size: 11px; color: #666; margin-top: 3px; }
+        .print-content {
+            font-size: 14px; line-height: 1.9;
+            white-space: pre-wrap; color: #222;
+        }
+        .print-footer {
+            margin-top: 18px; padding-top: 8px;
+            border-top: 1px dashed #999;
+            font-size: 11px; color: #666; text-align: center;
+        }
+    }
+
+    @media (min-width: 600px) {
+        #appContainer { max-width: 600px; }
+        .dashboard-grid { gap: 14px; }
+        .grid-card .card-icon { font-size: 28px; }
+        .grid-card .card-label { font-size: 12px; }
+    }
+
+    @media (max-height: 640px) {
+        .grid-card .card-icon { font-size: 20px; margin-bottom: 4px; }
+        .grid-card .card-label { font-size: 10px; }
+        .primary-big-btn { padding: 12px 16px; margin-bottom: 10px; }
+        .primary-big-btn .icon-box { width: 36px; height: 36px; font-size: 18px; }
+    }
+</style>
+</head>
+<body>
+
+<h1 class="seo-h1">Gold Price BD - আজকের সোনার দাম, ক্যারেট হিসাব ও সোনার ক্যালকুলেটর</h1>
+
+<div id="toast"></div>
+
+<div id="printArea" style="display:none;">
+    <div class="print-header">
+        <h2>✨ GoldAdjustment</h2>
+        <div class="sub">স্বর্ণ অ্যাডজাস্টমেন্ট রিপোর্ট</div>
+        <div class="sub" id="printDateTime"></div>
+    </div>
+    <div class="print-content" id="printContent"></div>
+    <div class="print-footer">
+        Dev: M.A.Ahad &nbsp;|&nbsp; 📞 01628255672
+    </div>
+</div>
+
+<div id="appContainer">
+
+    <header class="app-header">
+        <div class="header-left">
+            <div class="logo-circle">🪙</div>
+            <div class="header-text">
+                <h1>Gold Adjustment</h1>
+                <p>সহজ সোনার হিসাব</p>
+            </div>
+        </div>
+        <div class="header-right" onclick="shareApp()" title="Share App">🔗</div>
+    </header>
+
+    <div class="content-scroll">
+
+        <div id="dashboardScreen">
+            <button class="primary-big-btn" onclick="openFeature('price')">
+                <span class="icon-box">৳</span>
+                <span class="btn-text">দাম/মূল্য হিসাব</span>
+            </button>
+
+            <div class="dashboard-grid">
+                <!-- ============================================================
+                     পরিবর্তিত: "আজকের সোনার দর" এখন সরাসরি bajushub.com ওপেন করবে
+                     ============================================================ -->
+                <div class="grid-card" onclick="openBajushub()">
+                    <span class="card-icon">📊</span>
+                    <span class="card-label">আজকের সোনার দর</span>
+                </div>
+                <div class="grid-card" onclick="openFeature('main')">
+                    <span class="card-icon">💧</span>
+                    <span class="card-label">জমা হিসাব<br>(পাকা করুন)</span>
+                </div>
+                <div class="grid-card" onclick="openFeature('pure')">
+                    <span class="card-icon">🎯</span>
+                    <span class="card-label">পাকা থেকে<br>টার্গেট ক্যারেট</span>
+                </div>
+                <div class="grid-card" onclick="openFeature('any')">
+                    <span class="card-icon">🌀</span>
+                    <span class="card-label">যেকোনো থেকে<br>টার্গেট ক্যারেট</span>
+                </div>
+                <div class="grid-card" onclick="openFeature('gram')">
+                    <span class="card-icon">⚖️</span>
+                    <span class="card-label">গ্রাম থেকে<br>ভরি</span>
+                </div>
+                <div class="grid-card" onclick="openFeature('chart')">
+                    <span class="card-icon">📈</span>
+                    <span class="card-label">ক্যারেট খাদ<br>চার্ট</span>
+                </div>
+                <div class="grid-card calc-card" onclick="openFeature('calc')">
+                    <span class="card-icon">🔢</span>
+                    <span class="card-label">ক্যালকুলেটর</span>
+                </div>
+            </div>
+
+            <div class="admob-slot" id="admobBannerDashboard">
+                <!-- Android থেকে AdMob বিজ্ঞাপন এখানে inject হবে -->
+            </div>
+
+            <div class="seo-keywords-footer">
+                Gold Price BD | আজকের সোনার দাম | ক্যারেট ক্যালকুলেটর | Gold Adjustment | সোনার হিসাব
+            </div>
+        </div>
+
+        <div id="featureScreen">
+            <div class="feature-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <span class="feature-name" id="currentFeatureName">ফিচার</span>
+            </div>
+
+            <!-- MAIN -->
+            <div id="feature-main" class="feature-box">
+                <div class="feature-title">🪙 পাকা/জমা অ্যাডজাস্ট</div>
+
+                <div class="field-group">
+                    <div class="field-group-title">⚖️ মোট ওজন (Total Weight)</div>
+                    <div class="input-row">
+                        <div class="input-field"><label>ভরি</label><input id="tvori" type="number" value="1" step="any" /></div>
+                        <div class="input-field"><label>আনা</label><input id="tana" type="number" value="0" step="any" /></div>
+                        <div class="input-field"><label>রতি</label><input id="troti" type="number" value="0" step="any" /></div>
+                        <div class="input-field"><label>পয়েন্ট</label><input id="tpoint" type="number" value="0" step="any" /></div>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-group-title">🔗 পেইন্ট/জয়েন্ট ওজন (Joint Weight)</div>
+                    <div class="input-row">
+                        <div class="input-field"><label>ভরি</label><input id="jvori" type="number" value="0" step="any" /></div>
+                        <div class="input-field"><label>আনা</label><input id="jana" type="number" value="4" step="any" /></div>
+                        <div class="input-field"><label>রতি</label><input id="jroti" type="number" value="0" step="any" /></div>
+                        <div class="input-field"><label>পয়েন্ট</label><input id="jpoint" type="number" value="0" step="any" /></div>
+                    </div>
+                </div>
+
+                <div class="input-row-2">
+                    <div class="input-full" style="margin-bottom:0;">
+                        <label>Body Karat</label>
+                        <input id="bodyKarat" type="number" value="00.00" step="any" />
+                    </div>
+                    <div class="input-full" style="margin-bottom:0;">
+                        <label>Joint Karat</label>
+                        <input id="jointKarat" type="number" value="00.00" step="any" />
+                    </div>
+                </div>
+
+                <button class="btn" onclick="calculateMain()">📊 গণনা করুন</button>
+                <div class="result-box" id="mainResult">ফলাফল দেখাবে...</div>
+                <button class="print-btn" onclick="printResult('main')">
+                    <span class="p-icon">🖨️</span> ফলাফল প্রিন্ট করুন
+                </button>
+            </div>
+
+            <!-- PURE -->
+            <div id="feature-pure" class="feature-box">
+                <div class="feature-title">✨ পাকা (২৪K) → টার্গেট ক্যারেট</div>
+
+                <div class="field-group">
+                    <div class="field-group-title">✨ পাকা সোনার ওজন</div>
+                    <div class="input-row">
+                        <div class="input-field"><label>ভরি</label><input id="pVori" type="number" value="0" step="any" /></div>
+                        <div class="input-field"><label>আনা</label><input id="pAna" type="number" value="14" step="any" /></div>
+                        <div class="input-field"><label>রতি</label><input id="pRoti" type="number" value="0" step="any" /></div>
+                        <div class="input-field"><label>পয়েন্ট</label><input id="pPoint" type="number" value="0" step="any" /></div>
+                    </div>
+                </div>
+
+                <div class="input-full">
+                    <label>🎯 টার্গেট ক্যারেট</label>
+                    <input id="pureTarget" type="number" value="21" step="any" />
+                </div>
+
+                <button class="btn btn-secondary" onclick="calculatePureToTarget()">🧪 হিসাব করুন</button>
+                <div class="result-box" id="pureResult">ফলাফল দেখাবে...</div>
+                <button class="print-btn" onclick="printResult('pure')">
+                    <span class="p-icon">🖨️</span> ফলাফল প্রিন্ট করুন
+                </button>
+            </div>
+
+            <!-- ANY -->
+            <div id="feature-any" class="feature-box">
+                <div class="feature-title">🔄 যেকোনো ক্যারেট → টার্গেট</div>
+
+                <div class="input-full">
+                    <label>বর্তমান ক্যারেট (K)</label>
+                    <input id="currentKarat" type="number" value="00" step="any" />
+                </div>
+
+                <div class="field-group">
+                    <div class="field-group-title">⚖️ বর্তমান ওজন</div>
+                    <div class="input-row">
+                        <div class="input-field"><label>ভরি</label><input id="cVori" type="number" value="1" step="any" /></div>
+                        <div class="input-field"><label>আনা</label><input id="cAna" type="number" value="0" step="any" /></div>
+                        <div class="input-field"><label>রতি</label><input id="cRoti" type="number" value="0" step="any" /></div>
+                        <div class="input-field"><label>পয়েন্ট</label><input id="cPoint" type="number" value="0" step="any" /></div>
+                    </div>
+                </div>
+
+                <div class="input-full">
+                    <label>🎯 টার্গেট ক্যারেট (K)</label>
+                    <input id="targetKaratAny" type="number" value="21" step="any" />
+                </div>
+
+                <button class="btn btn-secondary" onclick="calculateAnyToTarget()">🔄 হিসাব করুন</button>
+                <div class="result-box" id="anyResult">ফলাফল দেখাবে...</div>
+                <button class="print-btn" onclick="printResult('any')">
+                    <span class="p-icon">🖨️</span> ফলাফল প্রিন্ট করুন
+                </button>
+            </div>
+
+            <!-- GRAM -->
+            <div id="feature-gram" class="feature-box">
+                <div class="feature-title">⚖️ গ্রাম ↔ ভরি-আনা-রতি-পয়েন্ট</div>
+
+                <div class="input-full">
+                    <label>⚖️ গ্রাম (Gram)</label>
+                    <input id="gramInput" type="number" value="0.0" step="any" oninput="convertGramToVori()" />
+                </div>
+
+                <div class="input-full">
+                    <label>🪙 ভরি-আনা-রতি-পয়েন্ট (Vori-Ana-Roti-Point)</label>
+                    <input id="voriOutput" type="text" value="0-0-0-0" oninput="convertVoriToGram()" />
+                </div>
+
+                <button class="print-btn" onclick="printResult('gram')">
+                    <span class="p-icon">🖨️</span> ফলাফল প্রিন্ট করুন
+                </button>
+            </div>
+
+            <!-- PRICE -->
+            <div id="feature-price" class="feature-box">
+                <div class="feature-title">💰 দাম / মূল্য হিসাব</div>
+
+                <div class="input-full">
+                    <label>💵 প্রতি ভরির দাম (৳)</label>
+                    <input id="pricePerVori" type="number" value="210000" step="any" oninput="calculatePrice()" />
+                </div>
+
+                <div class="field-group">
+                    <div class="field-group-title">⚖️ ওজন (Weight)</div>
+                    <div class="input-row">
+                        <div class="input-field"><label>ভরি</label><input id="prVori" type="number" value="0" step="any" oninput="calculatePrice()" /></div>
+                        <div class="input-field"><label>আনা</label><input id="prAna" type="number" value="0" step="any" oninput="calculatePrice()" /></div>
+                        <div class="input-field"><label>রতি</label><input id="prRoti" type="number" value="0" step="any" oninput="calculatePrice()" /></div>
+                        <div class="input-field"><label>পয়েন্ট</label><input id="prPoint" type="number" value="0" step="any" oninput="calculatePrice()" /></div>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-group-title">🛠️ মজুরি (Labor / Making Charge)</div>
+                    <div class="input-full" style="margin-bottom:8px;">
+                        <label>৳ পরিমাণ</label>
+                        <input id="laborCost" type="number" value="0" step="any" oninput="calculatePrice()" />
+                    </div>
+                    <div class="input-full" style="margin-bottom:0;">
+                        <label>টাইপ</label>
+                        <select id="laborType" onchange="calculatePrice()">
+                            <option value="perVori" selected>প্রতি ভরি (৳)</option>
+                            <option value="fixed">ফিক্সড (৳)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="calculatePrice()">💰 দাম দেখুন</button>
+
+                <div class="price-result">
+                    <div class="label">মোট মূল্য</div>
+                    <div class="amount" id="priceAmount">৳ 0</div>
+                    <div class="sub-line" id="priceSubLine">০ ভরি ০ আনা ০ রতি ০ পয়েন্ট</div>
+                    <div class="sub-line" id="laborSubLine" style="border-top:1px dashed #b39ddb; margin-top:6px; padding-top:6px;"></div>
+                </div>
+                <button class="print-btn" onclick="printResult('price')">
+                    <span class="p-icon">🖨️</span> ফলাফল প্রিন্ট করুন
+                </button>
+            </div>
+
+            <!-- CHART -->
+            <div id="feature-chart" class="feature-box">
+                <div class="feature-title">📊 ক্যারেট-খাদ চার্ট (২৪K → ১K)</div>
+
+                <div class="chart-table-wrap">
+                    <table class="chart-table">
+                        <thead>
+                            <tr>
+                                <th>ক্যারেট</th>
+                                <th>পিউরিটি</th>
+                                <th>১ ভরি সোনায় জমা</th>
+                                <th>খাদ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>24.00K</td><td>99.99%</td><td>1-0-0-0</td><td>0-0-0-0</td></tr>
+                            <tr><td>23.00K</td><td>95.83%</td><td>0-15-2-0</td><td>0-0-4-0</td></tr>
+                            <tr><td>22.00K</td><td>91.67%</td><td>0-14-4-0</td><td>0-1-2-0</td></tr>
+                            <tr><td>21.00K</td><td>87.50%</td><td>0-14-0-0</td><td>0-2-0-0</td></tr>
+                            <tr><td>20.00K</td><td>83.33%</td><td>0-13-2-0</td><td>0-2-4-0</td></tr>
+                            <tr><td>19.00K</td><td>79.17%</td><td>0-12-4-0</td><td>0-3-2-0</td></tr>
+                            <tr><td>18.00K</td><td>75.00%</td><td>0-12-0-0</td><td>0-4-0-0</td></tr>
+                            <tr><td>17.00K</td><td>70.83%</td><td>0-11-2-0</td><td>0-4-4-0</td></tr>
+                            <tr><td>16.00K</td><td>66.67%</td><td>0-10-4-0</td><td>0-5-2-0</td></tr>
+                            <tr><td>15.00K</td><td>62.50%</td><td>0-10-0-0</td><td>0-6-0-0</td></tr>
+                            <tr><td>14.00K</td><td>58.33%</td><td>0-9-2-0</td><td>0-6-4-0</td></tr>
+                            <tr><td>13.00K</td><td>54.17%</td><td>0-8-4-0</td><td>0-7-2-0</td></tr>
+                            <tr><td>12.00K</td><td>50.00%</td><td>0-8-0-0</td><td>0-8-0-0</td></tr>
+                            <tr><td>11.00K</td><td>45.83%</td><td>0-7-2-0</td><td>0-8-4-0</td></tr>
+                            <tr><td>10.00K</td><td>41.67%</td><td>0-6-4-0</td><td>0-9-2-0</td></tr>
+                            <tr><td>9.00K</td><td>37.50%</td><td>0-6-0-0</td><td>0-10-0-0</td></tr>
+                            <tr><td>8.00K</td><td>33.33%</td><td>0-5-2-0</td><td>0-10-4-0</td></tr>
+                            <tr><td>7.00K</td><td>29.17%</td><td>0-4-4-0</td><td>0-11-2-0</td></tr>
+                            <tr><td>6.00K</td><td>25.00%</td><td>0-4-0-0</td><td>0-12-0-0</td></tr>
+                            <tr><td>5.00K</td><td>20.83%</td><td>0-3-2-0</td><td>0-12-4-0</td></tr>
+                            <tr><td>4.00K</td><td>16.67%</td><td>0-2-4-0</td><td>0-13-2-0</td></tr>
+                            <tr><td>3.00K</td><td>12.50%</td><td>0-2-0-0</td><td>0-14-0-0</td></tr>
+                            <tr><td>2.00K</td><td>8.33%</td><td>0-1-2-0</td><td>0-14-4-0</td></tr>
+                            <tr><td>1.00K</td><td>4.17%</td><td>0-0-4-0</td><td>0-15-2-0</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="chart-note">
+                    <b>📌 ব্যাখ্যা:</b><br>
+                    • <b>১ ভরি সোনা</b> = নির্দিষ্ট ক্যারেটে ১ ভরি ওজনের সমতুল্য পাকা সোনার পরিমাণ<br>
+                    • <b>খাদ</b> = ঐ ক্যারেটে ১ ভরি করতে যে পরিমাণ খাদ (অ্যালয়) মিশাতে হবে<br>
+                    • যেমন: <b>২১K</b> এ ১ ভরি সোনা = ০-১৪-০-০ ভরি পাকা সোনা + ০-২-০-০ ভরি খাদ
+                </div>
+
+                <button class="print-btn" onclick="printResult('chart')">
+                    <span class="p-icon">🖨️</span> চার্ট প্রিন্ট করুন
+                </button>
+            </div>
+
+            <!-- LIVE RATE (কোডে থাকল, কিন্তু ড্যাশবোর্ড থেকে সরাসরি যাওয়া যাবে না) -->
+            <div id="feature-liveRate" class="feature-box">
+                <div class="feature-title">📈 আজকের সোনার দর</div>
+                <div style="font-size:12px; color:#666; margin-bottom:10px; text-align:center;">
+                    সর্বশেষ সোনার দর দেখতে নিচের লিংকে ক্লিক করুন
+                </div>
+                <a href="https://bajushub.com/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+                    <div class="live-rate-card">
+                        <span class="icon">🇧🇩</span>
+                        <div class="title">বাজুস দর (Bajushub.com)</div>
+                        <div class="sub">আজকের সোনা ও রুপার দাম (৳)</div>
+                    </div>
+                </a>
+                <div style="background: #faf8ff; border: 1px dashed #b39ddb; border-radius: 10px; padding: 10px; font-size: 11px; color: #666; text-align: center; margin-top: 10px;">
+                    💡 দর প্রায় প্রতিদিনই পরিবর্তন হয়।
+                </div>
+
+                <div class="admob-slot" id="admobBannerLiveRate" style="margin-top:12px;">
+                    <!-- Android থেকে AdMob বিজ্ঞাপন এখানে inject হবে -->
+                </div>
+            </div>
+
+            <!-- ABOUT -->
+            <div id="feature-about" class="feature-box">
+                <div class="feature-title">ℹ️ অ্যাপ সম্পর্কে</div>
+
+                <div class="about-hero">
+                    <div class="about-logo">🪙</div>
+                    <h2>Gold Adjustment</h2>
+                    <div class="ver">Version 2.0 • Free Forever</div>
+                    <div class="tagline">🇧🇩 বাংলাদেশের স্বর্ণ ব্যবসায়ীদের জন্য একটি পূর্ণাঙ্গ ডিজিটাল সমাধান</div>
+                </div>
+
+                <div class="about-section">
+                    <h3>📖 অ্যাপ পরিচিতি</h3>
+                    <p>
+                        <b>Gold Adjustment</b> হলো একটি সম্পূর্ণ ফ্রি ও অফলাইন-সাপোর্টেড মোবাইল/ওয়েব অ্যাপ্লিকেশন,
+                        যা বাংলাদেশের স্বর্ণ ব্যবসায়ী, জুয়েলারি দোকানদার এবং সাধারণ ক্রেতা-বিক্রেতাদের
+                        সোনার হিসাব, ক্যারেট রূপান্তর, মূল্য নির্ণয় ও অ্যাডজাস্টমেন্ট সহজ ও নির্ভুলভাবে করতে সাহায্য করে।
+                    </p>
+                    <p style="margin-top:8px;">
+                        এই অ্যাপটি বিশেষভাবে তৈরি করা হয়েছে যেন একজন স্বর্ণ ব্যবসায়ী প্রতিদিনের
+                        জমা হিসাব, ক্যারেট মিলানো, মজুরি যোগ করে দাম বের করা—সবকিছু কয়েক সেকেন্ডে
+                        করতে পারেন, কোন ঝামেলা ছাড়াই।
+                    </p>
+                </div>
+
+                <div class="about-section">
+                    <h3>✨ প্রধান ফিচারসমূহ</h3>
+                    <ul>
+                        <li>আজকের সোনার দর (বাজুস দর) দেখার সুবিধা</li>
+                        <li>পাকা/জমা হিসাব (Body + Joint Karat মিলিয়ে)</li>
+                        <li>পাকা (২৪K) থেকে যেকোনো টার্গেট ক্যারেটে রূপান্তর</li>
+                        <li>যেকোনো ক্যারেট থেকে টার্গেট ক্যারেটে রূপান্তর</li>
+                        <li>গ্রাম ↔ ভরি-আনা-রতি-পয়েন্ট রূপান্তর</li>
+                        <li>প্রতি ভরি দর থেকে সম্পূর্ণ মূল্য ও মজুরি হিসাব</li>
+                        <li>ক্যারেট-খাদ চার্ট (২৪K থেকে ১K পর্যন্ত)</li>
+                        <li>সম্পূর্ণ ক্যালকুলেটর (Memory + Scientific সাপোর্ট)</li>
+                        <li>ফলাফল প্রিন্ট করার সুবিধা</li>
+                        <li>সম্পূর্ণ বাংলা ভাষা ও অফলাইন সাপোর্ট</li>
+                    </ul>
+                </div>
+
+                <div class="about-section">
+                    <h3>💡 কেন এই অ্যাপ ব্যবহার করবেন?</h3>
+                    <ul>
+                        <li>হাতে হিসাব করার ভুল এড়ানো যায়</li>
+                        <li>মুহূর্তেই সঠিক ক্যারেট ও ওজন বের করা যায়</li>
+                        <li>ব্যবসায়িক লেনদেনে স্বচ্ছতা ও আত্মবিশ্বাস বাড়ে</li>
+                        <li>সময় বাঁচে এবং কাজ সহজ হয়</li>
+                        <li>সম্পূর্ণ ফ্রি — কোনো লুকানো চার্জ নেই</li>
+                    </ul>
+                </div>
+
+                <div class="about-section">
+                    <h3>📱 অ্যাপ তথ্য</h3>
+                    <div class="about-info-row"><span class="k">অ্যাপ নাম</span><span class="v">Gold Adjustment</span></div>
+                    <div class="about-info-row"><span class="k">ভার্সন</span><span class="v">2.0</span></div>
+                    <div class="about-info-row"><span class="k">প্লাটফর্ম</span><span class="v">Web / Android / iOS</span></div>
+                    <div class="about-info-row"><span class="k">ভাষা</span><span class="v">বাংলা (bn-BD)</span></div>
+                    <div class="about-info-row"><span class="k">মূল্য</span><span class="v">সম্পূর্ণ ফ্রি</span></div>
+                    <div class="about-info-row"><span class="k">অফলাইন</span><span class="v">সাপোর্টেড ✅</span></div>
+                </div>
+
+                <div class="about-section">
+                    <h3>👨‍💻 ডেভেলপার তথ্য</h3>
+                    <div class="about-info-row"><span class="k">নাম</span><span class="v">M.A.Ahad</span></div>
+                    <div class="about-info-row"><span class="k">মোবাইল</span><span class="v"><a href="tel:01628255672">01628255672</a></span></div>
+                    <div class="about-info-row"><span class="k">ওয়েবসাইট</span><span class="v"><a href="https://maahad01618-collab.github.io/goldadjustment-android/" target="_blank" rel="noopener">goldadjustment-android</a></span></div>
+                </div>
+
+                <div class="about-section">
+                    <h3>⚠️ ডিসক্লেইমার</h3>
+                    <div class="about-disclaimer">
+                        <b>গুরুত্বপূর্ণ:</b> এই অ্যাপে প্রদর্শিত সোনার দর (Gold Rate) ইন্টারনেট সোর্স (Bajushub) থেকে সংগৃহীত।
+                        প্রকৃত বাজারদর দিনে একাধিকবার পরিবর্তন হতে পারে। যেকোনো লেনদেন করার পূর্বে অবশ্যই
+                        সংশ্লিষ্ট কর্তৃপক্ষ/দোকান থেকে সর্বশেষ দর যাচাই করে নিন।
+                        অ্যাপে দেখানো ফলাফল শুধুমাত্র সহায়ক তথ্য হিসেবে ব্যবহারের জন্য, এটি কোনো আর্থিক পরামর্শ নয়।
+                    </div>
+                </div>
+
+                <div class="about-footer-note">
+                    ❤️ বাংলাদেশের স্বর্ণ ব্যবসায়ীদের জন্য ভালোবাসা দিয়ে তৈরি<br>
+                    © 2025 Gold Adjustment — All Rights Reserved
+                </div>
+
+                <button class="print-btn" onclick="printAbout()" style="margin-top:14px;">
+                    <span class="p-icon">🖨️</span> About প্রিন্ট করুন
+                </button>
+            </div>
+
+            <!-- CALCULATOR -->
+            <div id="feature-calc" class="feature-box" style="background:transparent; border:none; padding:0; box-shadow:none;">
+                <div class="calculator" id="calculatorBox">
+                    <div class="display-container">
+                        <div class="expression" id="calcExpression"></div>
+                        <div class="result" id="calcResult">0</div>
+                    </div>
+
+                    <div class="memory-row">
+                        <button class="memory-btn" onclick="calcMemoryClear()">MC</button>
+                        <button class="memory-btn" onclick="calcMemoryRecall()">MR</button>
+                        <button class="memory-btn" onclick="calcMemoryAdd()">M+</button>
+                        <button class="memory-btn" onclick="calcMemorySub()">M-</button>
+                        <button class="memory-btn" onclick="calcMemoryStore()">MS</button>
+                        <button class="memory-btn">M▼</button>
+                    </div>
+
+                    <div class="keypad">
+                        <button class="operator" onclick="calcInputOperator('%')">%</button>
+                        <button onclick="calcClearEntry()">CE</button>
+                        <button onclick="calcClearAll()">C</button>
+                        <button class="operator" onclick="calcBackspace()">⌫</button>
+
+                        <button class="operator" onclick="calcInputOperator('1/')">1/x</button>
+                        <button class="operator" onclick="calcInputOperator('sqr')">x²</button>
+                        <button class="operator" onclick="calcInputOperator('sqrt')">²√x</button>
+                        <button class="operator" onclick="calcInputOperator('/')">÷</button>
+
+                        <button onclick="calcInputDigit('7')">7</button>
+                        <button onclick="calcInputDigit('8')">8</button>
+                        <button onclick="calcInputDigit('9')">9</button>
+                        <button class="operator" onclick="calcInputOperator('*')">×</button>
+
+                        <button onclick="calcInputDigit('4')">4</button>
+                        <button onclick="calcInputDigit('5')">5</button>
+                        <button onclick="calcInputDigit('6')">6</button>
+                        <button class="operator" onclick="calcInputOperator('-')">−</button>
+
+                        <button onclick="calcInputDigit('1')">1</button>
+                        <button onclick="calcInputDigit('2')">2</button>
+                        <button onclick="calcInputDigit('3')">3</button>
+                        <button class="operator" onclick="calcInputOperator('+')">+</button>
+
+                        <button onclick="calcToggleSign()">+/-</button>
+                        <button onclick="calcInputDigit('0')">0</button>
+                        <button onclick="calcInputDigit('.')">.</button>
+                        <button class="equal-btn" onclick="calcCalculateResult()">=</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" id="navHome" onclick="goBack()">
+            <span class="nav-icon">🏠</span>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" id="navAbout" onclick="openFeature('about')">
+            <span class="nav-icon">ℹ️</span>
+            <span>About</span>
+        </div>
+        <div class="nav-item" id="navProfile" onclick="showToast('Profile coming soon', 'info', 1500)">
+            <span class="nav-icon">👤</span>
+            <span>Profile</span>
+        </div>
+    </nav>
+
+</div>
+
+<script>
+    (function() {
+        'use strict';
+
+        function isNumericInput(el) {
+            if (!el || el.tagName !== 'INPUT') return false;
+            const type = (el.type || '').toLowerCase();
+            if (type === 'number') return true;
+            const mode = (el.getAttribute('inputmode') || '').toLowerCase();
+            if (mode === 'numeric' || mode === 'decimal') return true;
+            return false;
+        }
+
+        function emptySafeValue(el) {
+            const v = String(el.value).trim();
+            if (v === '' || v === '-' || v === '.' || v === '-.' || isNaN(parseFloat(v))) {
+                const def = el.getAttribute('data-default');
+                if (def !== null && def !== undefined) { el.value = def; } else { el.value = '0'; }
+            }
+        }
+
+        function enhanceInput(el) {
+            if (el._numericEnhanced) return;
+            el._numericEnhanced = true;
+
+            el.addEventListener('focus', function() {
+                setTimeout(() => {
+                    try { if (this.value !== '' && this.value !== '-') this.select(); } catch (e) {}
+                }, 30);
+            });
+
+            el.addEventListener('click', function() {
+                try {
+                    if (this.selectionStart === this.selectionEnd &&
+                        (this.selectionStart === 0 || this.selectionStart === this.value.length)) {
+                        this.select();
+                    }
+                } catch (err) {}
+            });
+
+            el.addEventListener('blur', function() { emptySafeValue(this); });
+
+            el.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const all = Array.from(document.querySelectorAll('input'))
+                        .filter(isNumericInput)
+                        .filter(x => {
+                            const box = x.closest('.feature-box');
+                            if (box && !box.classList.contains('active')) return false;
+                            if (x.offsetParent === null) return false;
+                            if (x.disabled || x.readOnly) return false;
+                            return true;
+                        });
+                    const idx = all.indexOf(this);
+                    if (idx > -1 && idx < all.length - 1) { all[idx + 1].focus(); } else { this.blur(); }
+                }
+            });
+        }
+
+        function applyToAll() {
+            document.querySelectorAll('input').forEach(el => {
+                if (isNumericInput(el)) enhanceInput(el);
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', applyToAll);
+        } else { applyToAll(); }
+
+        const mo = new MutationObserver(applyToAll);
+        mo.observe(document.body, { childList: true, subtree: true });
+    })();
+
+    let currentScreen = 'dashboard';
+    let popstateLock = false;
+
+    function pushHistoryState(stateName) {
+        try {
+            if (history.state && history.state.screen === stateName) return;
+            history.pushState({ screen: stateName, ts: Date.now() }, '');
+        } catch (e) {}
+    }
+
+    function showToast(msg, type = 'info', duration = 2500) {
+        const t = document.getElementById('toast');
+        if (!t) return;
+        t.textContent = msg;
+        t.className = 'show ' + type;
+        clearTimeout(t._timer);
+        t._timer = setTimeout(() => { t.className = ''; }, duration);
+    }
+
+    // ============================================================
+    // নতুন ফাংশন: সরাসরি bajushub.com ওপেন করবে
+    // ============================================================
+    function openBajushub() {
+        window.open('https://bajushub.com/', '_blank', 'noopener');
+    }
+
+    function shareApp() {
+        const shareUrl = 'https://maahad01618-collab.github.io/goldadjustment-android/';
+        const shareText = '🇧🇩 Gold Adjustment — সোনার হিসাব ও ক্যারেট ক্যালকুলেটর\n\n' +
+                          'আজকের সোনার দাম, ক্যারেট হিসাব, ভরি-আনা-রতি, মজুরি হিসাব — সব এক অ্যাপে!\n\n' +
+                          'সম্পূর্ণ ফ্রি ও অফলাইনেও কাজ করে 👇';
+
+        if (navigator.share) {
+            navigator.share({
+                title: 'Gold Adjustment — সোনার হিসাব অ্যাপ',
+                text: shareText,
+                url: shareUrl
+            })
+            .then(() => { console.log('[Share] Success'); })
+            .catch((err) => {
+                if (err && err.name !== 'AbortError') {
+                    console.warn('Share failed:', err);
+                    shareViaWhatsApp(shareText, shareUrl);
+                }
+            });
+        } else {
+            shareViaWhatsApp(shareText, shareUrl);
+        }
+    }
+
+    function shareViaWhatsApp(text, url) {
+        const waUrl = 'https://wa.me/?text=' + encodeURIComponent(text + '\n' + url);
+        try {
+            window.open(waUrl, '_blank', 'noopener');
+        } catch (e) {
+            fallbackCopy(text + '\n' + url);
+        }
+    }
+
+    function fallbackCopy(text) {
+        try {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.focus(); ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast('লিংক কপি হয়েছে — এখন পেস্ট করে শেয়ার করুন', 'success', 2500);
+        } catch (e) {
+            showToast('লিংক: goldadjustment-android', 'info', 3500);
+        }
+    }
+
+    function closeAppPWA() {
+        try { window.close(); } catch (e) {}
+        setTimeout(() => {
+            try { self.close(); } catch (e) {}
+            try { window.open('', '_self', ''); window.close(); } catch (e) {}
+        }, 80);
+        setTimeout(() => {
+            try {
+                document.documentElement.innerHTML =
+                    '<head><title></title></head><body style="background:#f0f2f5;margin:0;"></body>';
+            } catch (e) {}
+        }, 250);
+    }
+
+    function exitApp() {
+        const wantExit = confirm('GoldAdjustment থেকে বেরিয়ে যেতে চান?\n\nYes = বেরিয়ে যাব\nNo = অ্যাপে থাকব');
+        if (!wantExit) return;
+        closeAppPWA();
+    }
+
+    window.addEventListener('popstate', function () {
+        if (popstateLock) return;
+        if (currentScreen === 'feature') {
+            showDashboard(false);
+            currentScreen = 'dashboard';
+            try { history.pushState({ screen: 'dashboard', ts: Date.now() }, ''); } catch (e) {}
+            return;
+        }
+        if (currentScreen === 'dashboard') {
+            try { history.pushState({ screen: 'dashboard', ts: Date.now() }, ''); } catch (e) {}
+            const wantExit = confirm('GoldAdjustment থেকে বেরিয়ে যেতে চান?\n\nOk = বেরিয়ে যাব\nCancel = অ্যাপে থাকব');
+            if (wantExit) { popstateLock = true; closeAppPWA(); }
+        }
+    });
+
+    const featureNames = {
+        main: '🪙 পাকা/জমা অ্যাডজাস্ট',
+        pure: '✨ পাকা → টার্গেট',
+        any: '🔄 যেকোনো → টার্গেট',
+        gram: '⚖️ গ্রাম ↔ ভরি',
+        price: '💰 দাম / মূল্য হিসাব',
+        chart: '📊 ক্যারেট-খাদ চার্ট',
+        liveRate: '📈 আজকের সোনার দর',
+        calc: '🧮 ক্যালকুলেটর',
+        about: 'ℹ️ অ্যাপ সম্পর্কে'
+    };
+
+    function updateBottomNav(id) {
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        if (id === 'about') {
+            document.getElementById('navAbout').classList.add('active');
+        } else if (id === 'dashboard') {
+            document.getElementById('navHome').classList.add('active');
+        }
+    }
+
+    function showDashboard(pushState = true) {
+        currentScreen = 'dashboard';
+        document.getElementById('dashboardScreen').style.display = 'flex';
+        document.getElementById('featureScreen').classList.remove('show');
+        updateBottomNav('dashboard');
+        if (pushState) pushHistoryState('dashboard');
+    }
+
+    function openFeature(id) {
+        currentScreen = 'feature';
+        document.getElementById('dashboardScreen').style.display = 'none';
+        document.getElementById('featureScreen').classList.add('show');
+
+        document.querySelectorAll('.feature-box').forEach(f => f.classList.remove('active'));
+        document.getElementById('feature-' + id).classList.add('active');
+
+        document.getElementById('currentFeatureName').textContent = featureNames[id] || 'ফিচার';
+
+        if (id === 'main') calculateMain();
+        if (id === 'pure') calculatePureToTarget();
+        if (id === 'any') calculateAnyToTarget();
+        if (id === 'gram') convertGramToVori();
+        if (id === 'price') calculatePrice();
+        if (id === 'calc') calcClearAll();
+
+        if (id === 'about') { updateBottomNav('about'); } else { updateBottomNav('feature'); }
+
+        pushHistoryState('feature');
+    }
+
+    function goBack() {
+        showDashboard(false);
+        currentScreen = 'dashboard';
+        try { history.replaceState({ screen: 'dashboard', ts: Date.now() }, ''); } catch (e) {}
+    }
+
+    function printAbout() {
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('bn-BD', { year: 'numeric', month: 'long', day: 'numeric' });
+        const timeStr = now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('printDateTime').textContent = `${dateStr} — ${timeStr}`;
+        const content =
+            'অ্যাপ পরিচিতি\n─────────────\n' +
+            'Gold Adjustment একটি সম্পূর্ণ ফ্রি অ্যাপ, যা বাংলাদেশের স্বর্ণ ব্যবসায়ীদের সোনার হিসাব, ক্যারেট রূপান্তর, মূল্য নির্ণয় ও অ্যাডজাস্টমেন্ট সহজ করতে সাহায্য করে।\n\n' +
+            'প্রধান ফিচারসমূহ\n─────────────\n' +
+            '• আজকের সোনার দর (বাজুস দর)\n• পাকা/জমা হিসাব (Body + Joint Karat)\n' +
+            '• পাকা (২৪K) থেকে টার্গেট ক্যারেট\n• যেকোনো ক্যারেট থেকে টার্গেট ক্যারেট\n' +
+            '• গ্রাম ↔ ভরি-আনা-রতি-পয়েন্ট\n• মূল্য ও মজুরি হিসাব\n' +
+            '• ক্যারেট-খাদ চার্ট (২৪K → ১K)\n• ক্যালকুলেটর (Memory + Scientific)\n' +
+            '• ফলাফল প্রিন্ট সুবিধা\n• সম্পূর্ণ বাংলা ও অফলাইন সাপোর্ট\n\n' +
+            'ডেভেলপার তথ্য\n─────────────\nনাম     : M.A.Ahad\nমোবাইল  : 01628255672\nওয়েবসাইট: goldadjustment-android\n\n' +
+            '⚠️ ডিসক্লেইমার\n─────────────\nঅ্যাপে প্রদর্শিত দর ইন্টারনেট সোর্স থেকে সংগৃহীত। যেকোনো লেনদেনের পূর্বে সর্বশেষ দর যাচাই করে নিন।\n\n' +
+            '❤️ বাংলাদেশের স্বর্ণ ব্যবসায়ীদের জন্য ভালোবাসা দিয়ে তৈরি\n© 2025 Gold Adjustment';
+        document.getElementById('printContent').textContent = content;
+        const printArea = document.getElementById('printArea');
+        printArea.style.display = 'block';
+        window.print();
+        setTimeout(() => { printArea.style.display = 'none'; }, 500);
+    }
+
+    function printResult(featureId) {
+        if (featureId === 'main') calculateMain();
+        if (featureId === 'pure') calculatePureToTarget();
+        if (featureId === 'any') calculateAnyToTarget();
+        if (featureId === 'gram') convertGramToVori();
+        if (featureId === 'price') calculatePrice();
+
+        let title = '';
+        let content = '';
+
+        if (featureId === 'main') {
+            title = '🪙 পাকা/জমা অ্যাডজাস্ট';
+            content = document.getElementById('mainResult').textContent;
+        } else if (featureId === 'pure') {
+            title = '✨ পাকা (২৪K) → টার্গেট ক্যারেট';
+            content = document.getElementById('pureResult').textContent;
+        } else if (featureId === 'any') {
+            title = '🔄 যেকোনো ক্যারেট → টার্গেট';
+            content = document.getElementById('anyResult').textContent;
+        } else if (featureId === 'gram') {
+            title = '⚖️ গ্রাম ↔ ভরি-আনা-রতি-পয়েন্ট';
+            const gram = document.getElementById('gramInput').value || '0';
+            const vori = document.getElementById('voriOutput').value || '0-0-0-0';
+            content = `গ্রাম  : ${gram} g\nভরি   : ${vori}`;
+        } else if (featureId === 'price') {
+            title = '💰 দাম / মূল্য হিসাব';
+            const amount = document.getElementById('priceAmount').textContent;
+            const subLine = document.getElementById('priceSubLine').textContent;
+            const laborLine = document.getElementById('laborSubLine').textContent;
+            content = `মোট মূল্য : ${amount}\n\nওজন       : ${subLine}\n${laborLine}`;
+        } else if (featureId === 'chart') {
+            title = '📊 ক্যারেট-খাদ চার্ট (২৪K → ১K)';
+            const rows = document.querySelectorAll('#feature-chart .chart-table tbody tr');
+            let tableText = 'ক্যারেট | পিউরিটি | ১ ভরি সোনা | খাদ\n';
+            tableText += '─'.repeat(45) + '\n';
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length === 4) {
+                    tableText += `${cells[0].textContent} | ${cells[1].textContent} | ${cells[2].textContent} | ${cells[3].textContent}\n`;
+                }
+            });
+            content = tableText;
+        }
+
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('bn-BD', { year: 'numeric', month: 'long', day: 'numeric' });
+        const timeStr = now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
+
+        document.getElementById('printDateTime').textContent = `${dateStr} — ${timeStr}`;
+        document.getElementById('printContent').textContent = `${title}\n${'─'.repeat(30)}\n\n${content}`;
+
+        const printArea = document.getElementById('printArea');
+        printArea.style.display = 'block';
+        window.print();
+        setTimeout(() => { printArea.style.display = 'none'; }, 500);
+    }
+
+    function calculateMain() {
+        const tv = parseFloat(document.getElementById('tvori').value) || 0;
+        const ta = parseFloat(document.getElementById('tana').value) || 0;
+        const tr = parseFloat(document.getElementById('troti').value) || 0;
+        const tp = parseFloat(document.getElementById('tpoint').value) || 0;
+        const jv = parseFloat(document.getElementById('jvori').value) || 0;
+        const ja = parseFloat(document.getElementById('jana').value) || 0;
+        const jr = parseFloat(document.getElementById('jroti').value) || 0;
+        const jp = parseFloat(document.getElementById('jpoint').value) || 0;
+        const bk = parseFloat(document.getElementById('bodyKarat').value) || 0;
+        const jk = parseFloat(document.getElementById('jointKarat').value) || 0;
+
+        const totalPoints = tv * 960 + ta * 60 + tr * 10 + tp;
+        const jointPoints = jv * 960 + ja * 60 + jr * 10 + jp;
+        const mainBody = totalPoints - jointPoints;
+        const multiplier = jointPoints > 0 ? mainBody / jointPoints : 0;
+        const totalPart = Math.round(multiplier) + 1;
+        const weightedKarat = ((bk * Math.round(multiplier)) + jk) / totalPart;
+        const purity = (weightedKarat / 24) * 100;
+
+        document.getElementById('mainResult').textContent =
+            `Per Vori Deposit  : ${toVoriAnaRoti((weightedKarat / 24) * 960)}\nWeight Base Deposit: ${toVoriAnaRoti(totalPoints * (weightedKarat / 24))}\nPurity %          : ${purity.toFixed(2)}%\nWeighted Karat     : ${weightedKarat.toFixed(2)}K`;
+    }
+
+    function calculatePureToTarget() {
+        const v = parseFloat(document.getElementById('pVori').value) || 0;
+        const a = parseFloat(document.getElementById('pAna').value) || 0;
+        const r = parseFloat(document.getElementById('pRoti').value) || 0;
+        const p = parseFloat(document.getElementById('pPoint').value) || 0;
+        const target = parseFloat(document.getElementById('pureTarget').value) || 21;
+        const purePoints = v * 960 + a * 60 + r * 10 + p;
+        const alloy = (purePoints * 24) / target - purePoints;
+        const total = purePoints + alloy;
+        document.getElementById('pureResult').textContent =
+            `খাদের ওজন  : ${toVoriAnaRoti(alloy)}\nমোট ওজন    : ${toVoriAnaRoti(total)}`;
+    }
+
+    function calculateAnyToTarget() {
+        const ck = parseFloat(document.getElementById('currentKarat').value) || 20;
+        const v = parseFloat(document.getElementById('cVori').value) || 0;
+        const a = parseFloat(document.getElementById('cAna').value) || 0;
+        const r = parseFloat(document.getElementById('cRoti').value) || 0;
+        const p = parseFloat(document.getElementById('cPoint').value) || 0;
+        const tk = parseFloat(document.getElementById('targetKaratAny').value) || 21;
+        const points = v * 960 + a * 60 + r * 10 + p;
+        let add, total;
+        if (tk > ck) {
+            add = points * (tk - ck) / (24 - tk);
+            total = points + add;
+            document.getElementById('anyResult').textContent =
+                `পাকা যোগ করুন : ${toVoriAnaRoti(add)}\nনতুন ওজন     : ${toVoriAnaRoti(total)}`;
+        } else if (tk < ck) {
+            add = points * (ck - tk) / tk;
+            total = points + add;
+            document.getElementById('anyResult').textContent =
+                `খাদ মিশান    : ${toVoriAnaRoti(add)}\nনতুন ওজন     : ${toVoriAnaRoti(total)}`;
+        } else {
+            document.getElementById('anyResult').textContent = `ক্যারেট সমান, কিছু পরিবর্তন নেই।`;
+        }
+    }
+
+    function convertGramToVori() {
+        const gram = parseFloat(document.getElementById('gramInput').value) || 0;
+        const points = (gram / 11.664) * 960;
+        document.getElementById('voriOutput').value = toVoriAnaRoti(points);
+    }
+
+    function convertVoriToGram() {
+        const parts = document.getElementById('voriOutput').value.split('-');
+        if (parts.length !== 4) return;
+        const v = parseInt(parts[0]) || 0;
+        const a = parseInt(parts[1]) || 0;
+        const r = parseInt(parts[2]) || 0;
+        const p = parseInt(parts[3]) || 0;
+        const points = v * 960 + a * 60 + r * 10 + p;
+        const gram = (points / 960) * 11.664;
+        document.getElementById('gramInput').value = gram.toFixed(4);
+    }
+
+    function calculatePrice() {
+        const pricePerVori = parseFloat(document.getElementById('pricePerVori').value) || 0;
+        const v = parseFloat(document.getElementById('prVori').value) || 0;
+        const a = parseFloat(document.getElementById('prAna').value) || 0;
+        const r = parseFloat(document.getElementById('prRoti').value) || 0;
+        const p = parseFloat(document.getElementById('prPoint').value) || 0;
+        const laborCost = parseFloat(document.getElementById('laborCost').value) || 0;
+        const laborType = document.getElementById('laborType').value;
+        const pricePerPoint = pricePerVori / 960;
+        const totalPoints = v * 960 + a * 60 + r * 10 + p;
+        const goldPrice = totalPoints * pricePerPoint;
+        let laborTotal = 0;
+        if (laborType === 'fixed') { laborTotal = laborCost; }
+        else if (laborType === 'perVori') { laborTotal = (totalPoints / 960) * laborCost; }
+        const totalPrice = goldPrice + laborTotal;
+        document.getElementById('priceAmount').textContent = '৳ ' + formatBDT(totalPrice);
+        document.getElementById('priceSubLine').textContent = toVoriAnaRotiBangla(totalPoints);
+        document.getElementById('laborSubLine').textContent =
+            `মজুরি: ৳ ${formatBDT(laborTotal)}  |  সোনার দাম: ৳ ${formatBDT(goldPrice)}`;
+    }
+
+    function formatBDT(num) {
+        const fixed = Math.round(num * 100) / 100;
+        const parts = fixed.toFixed(2).split('.');
+        let intPart = parts[0];
+        let lastThree = intPart.substring(intPart.length - 3);
+        let otherNumbers = intPart.substring(0, intPart.length - 3);
+        if (otherNumbers !== '') { lastThree = ',' + lastThree; }
+        const formattedInt = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+        return formattedInt + '.' + parts[1];
+    }
+
+    function toVoriAnaRotiBangla(points) {
+        const v = Math.floor(points / 960);
+        let rem = points % 960;
+        const a = Math.floor(rem / 60);
+        rem = rem % 60;
+        const r = Math.floor(rem / 10);
+        const p = Math.round(rem % 10);
+        return `${v} ভরি ${a} আনা ${r} রতি ${p} পয়েন্ট`;
+    }
+
+    function toVoriAnaRoti(points) {
+        const v = Math.floor(points / 960);
+        let rem = points % 960;
+        const a = Math.floor(rem / 60);
+        rem = rem % 60;
+        const r = Math.floor(rem / 10);
+        const p = Math.round(rem % 10);
+        return `${v}-${a}-${r}-${p}`;
+    }
+
+    // ===== CALCULATOR =====
+    let calcCurrentInput = '0';
+    let calcPreviousInput = '';
+    let calcOperator = '';
+    let calcExpressionHistory = '';
+    let calcIsNewInput = true;
+    let calcMemoryValue = 0;
+
+    const calcResultEl = document.getElementById('calcResult');
+    const calcExpressionEl = document.getElementById('calcExpression');
+
+    function calcFormatNumber(numStr) {
+        if (numStr === 'Error' || numStr === 'Cannot divide by zero') return numStr;
+        if (numStr === '-') return '-';
+        let parts = numStr.split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join('.');
+    }
+
+    function calcAdjustFontSize() {
+        const length = calcResultEl.innerText.length;
+        if (length > 14) calcResultEl.style.fontSize = '24px';
+        else if (length > 11) calcResultEl.style.fontSize = '28px';
+        else if (length > 8) calcResultEl.style.fontSize = '33px';
+        else calcResultEl.style.fontSize = '36px';
+    }
+
+    function calcUpdateDisplay() {
+        calcResultEl.innerText = calcFormatNumber(calcCurrentInput);
+        calcExpressionEl.innerText = calcExpressionHistory;
+        calcAdjustFontSize();
+    }
+
+    function calcInputDigit(digit) {
+        if (calcIsNewInput) {
+            calcCurrentInput = digit === '.' ? '0.' : digit;
+            calcIsNewInput = false;
+        } else {
+            if (digit === '.' && calcCurrentInput.includes('.')) return;
+            if (calcCurrentInput === '0' && digit !== '.') { calcCurrentInput = digit; }
+            else { calcCurrentInput += digit; }
+        }
+        calcUpdateDisplay();
+    }
+
+    function calcInputOperator(op) {
+        if (calcCurrentInput === 'Error' || calcCurrentInput === 'Cannot divide by zero') calcClearAll();
+        if (op === '1/') {
+            calcExpressionHistory = `1/(${calcFormatNumber(calcCurrentInput)})`;
+            calcCurrentInput = (1 / parseFloat(calcCurrentInput.replace(/,/g, ''))).toString();
+            calcIsNewInput = true; calcUpdateDisplay(); return;
+        }
+        if (op === 'sqr') {
+            calcExpressionHistory = `sqr(${calcFormatNumber(calcCurrentInput)})`;
+            let val = parseFloat(calcCurrentInput.replace(/,/g, ''));
+            calcCurrentInput = (val * val).toString();
+            calcIsNewInput = true; calcUpdateDisplay(); return;
+        }
+        if (op === 'sqrt') {
+            calcExpressionHistory = `√(${calcFormatNumber(calcCurrentInput)})`;
+            let val = parseFloat(calcCurrentInput.replace(/,/g, ''));
+            calcCurrentInput = (Math.sqrt(val)).toString();
+            calcIsNewInput = true; calcUpdateDisplay(); return;
+        }
+        if (op === '%') {
+            let val = parseFloat(calcCurrentInput.replace(/,/g, ''));
+            calcCurrentInput = (val / 100).toString();
+            calcIsNewInput = true; calcUpdateDisplay(); return;
+        }
+        let rawCurrent = calcCurrentInput.replace(/,/g, '');
+        if (calcOperator && !calcIsNewInput) {
+            calcCalculateResult(false);
+            rawCurrent = calcCurrentInput.replace(/,/g, '');
+        }
+        calcPreviousInput = rawCurrent;
+        calcOperator = op;
+        calcIsNewInput = true;
+        let opSymbol = op === '*' ? '×' : op === '/' ? '÷' : op;
+        calcExpressionHistory = `${calcFormatNumber(calcPreviousInput)} ${opSymbol}`;
+        calcUpdateDisplay();
+    }
+
+    function calcCalculateResult(showFullHistory = true) {
+        if (!calcOperator || calcPreviousInput === '') return;
+        let prev = parseFloat(calcPreviousInput);
+        let curr = parseFloat(calcCurrentInput.replace(/,/g, ''));
+        let result = 0;
+        switch (calcOperator) {
+            case '+': result = prev + curr; break;
+            case '-': result = prev - curr; break;
+            case '*': result = prev * curr; break;
+            case '/': 
+                if (curr === 0) {
+                    calcCurrentInput = 'Cannot divide by zero';
+                    calcExpressionHistory = '';
+                    calcOperator = ''; calcIsNewInput = true;
+                    calcUpdateDisplay(); return;
+                }
+                result = prev / curr; break;
+        }
+        result = Math.round(result * 100000000000) / 100000000000;
+        if (showFullHistory) {
+            let opSymbol = calcOperator === '*' ? '×' : calcOperator === '/' ? '÷' : calcOperator;
+            calcExpressionHistory = `${calcFormatNumber(calcPreviousInput)} ${opSymbol} ${calcFormatNumber(calcCurrentInput)} =`;
+        }
+        calcCurrentInput = result.toString();
+        calcOperator = ''; calcPreviousInput = ''; calcIsNewInput = true;
+        calcUpdateDisplay();
+    }
+
+    function calcClearAll() {
+        calcCurrentInput = '0'; calcPreviousInput = ''; calcOperator = '';
+        calcExpressionHistory = ''; calcIsNewInput = true;
+        calcUpdateDisplay();
+    }
+
+    function calcClearEntry() { calcCurrentInput = '0'; calcIsNewInput = true; calcUpdateDisplay(); }
+
+    function calcBackspace() {
+        if (calcIsNewInput || calcCurrentInput === 'Error' || calcCurrentInput === 'Cannot divide by zero') {
+            calcClearEntry(); return;
+        }
+        if (calcCurrentInput.length > 1) {
+            calcCurrentInput = calcCurrentInput.slice(0, -1);
+            if (calcCurrentInput === '-') calcCurrentInput = '0';
+        } else { calcCurrentInput = '0'; calcIsNewInput = true; }
+        calcUpdateDisplay();
+    }
+
+    function calcToggleSign() {
+        if (calcCurrentInput === '0' || calcCurrentInput === 'Error' || calcCurrentInput === 'Cannot divide by zero') return;
+        if (calcCurrentInput.startsWith('-')) { calcCurrentInput = calcCurrentInput.substring(1); }
+        else { calcCurrentInput = '-' + calcCurrentInput; }
+        calcUpdateDisplay();
+    }
+
+    function calcMemoryClear() { calcMemoryValue = 0; showToast('Memory Cleared', 'info', 1500); }
+    function calcMemoryRecall() { calcCurrentInput = calcMemoryValue.toString(); calcIsNewInput = true; calcUpdateDisplay(); }
+    function calcMemoryStore() { calcMemoryValue = parseFloat(calcCurrentInput.replace(/,/g, '')) || 0; showToast('Stored in Memory', 'success', 1500); }
+    function calcMemoryAdd() { calcMemoryValue += parseFloat(calcCurrentInput.replace(/,/g, '')) || 0; calcIsNewInput = true; showToast('Added to Memory', 'success', 1500); }
+    function calcMemorySub() { calcMemoryValue -= parseFloat(calcCurrentInput.replace(/,/g, '')) || 0; calcIsNewInput = true; showToast('Subtracted from Memory', 'success', 1500); }
+
+    document.addEventListener('keydown', function(event) {
+        const calcFeature = document.getElementById('feature-calc');
+        const isCalcOpen = currentScreen === 'feature' && calcFeature && calcFeature.classList.contains('active');
+        if (!isCalcOpen) return;
+        const activeEl = document.activeElement;
+        const isInputFocused = activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA');
+        if (isInputFocused) return;
+        const key = event.key;
+        if (/^[0-9]$/.test(key)) { event.preventDefault(); calcInputDigit(key); }
+        else if (key === '.' || key === ',') { event.preventDefault(); calcInputDigit('.'); }
+        else if (key === '+') { event.preventDefault(); calcInputOperator('+'); }
+        else if (key === '-') { event.preventDefault(); calcInputOperator('-'); }
+        else if (key === '*' || key === 'x' || key === 'X') { event.preventDefault(); calcInputOperator('*'); }
+        else if (key === '/') { event.preventDefault(); calcInputOperator('/'); }
+        else if (key === '=' || key === 'Enter') { event.preventDefault(); calcCalculateResult(); }
+        else if (key === 'Backspace') { event.preventDefault(); calcBackspace(); }
+        else if (key === 'Escape') { event.preventDefault(); goBack(); }
+        else if (key === 'Delete') { event.preventDefault(); calcClearAll(); }
+        else if (key === '%') { event.preventDefault(); calcInputOperator('%'); }
+    });
+
+    window.addEventListener('load', function() {
+        calculateMain();
+        calculatePureToTarget();
+        calculateAnyToTarget();
+        convertGramToVori();
+        calculatePrice();
+        try { history.replaceState({ screen: 'dashboard', ts: Date.now() }, ''); } catch (e) {}
+    });
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(err =>
+            console.warn('Offline service worker registration failed:', err)
+        );
+    });
+}
+</script>
+</body>
+</html>
