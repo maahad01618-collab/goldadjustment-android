@@ -1,5 +1,5 @@
 // GoldAdjustment Service Worker
-const CACHE_NAME = 'goldadjustment-v3';
+const CACHE_NAME = 'goldadjustment-android-v1';
 const APP_SHELL = [
     './',
     './index.html',
