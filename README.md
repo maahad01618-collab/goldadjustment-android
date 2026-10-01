@@ -2,7 +2,7 @@
 
 স্বর্ণ (Gold) ব্যবসায়ীদের জন্য একটি সম্পূর্ণ ফ্রি অ্যাডজাস্টমেন্ট ক্যালকুলেটর অ্যাপ।
 
-![Version](https://img.shields.io/badge/Version-2.0-gold)
+![Version](https://img.shields.io/badge/Version-2.0-DAA520)
 ![Platform](https://img.shields.io/badge/Platform-PWA-blue)
 ![License](https://img.shields.io/badge/License-Free-green)
 
@@ -10,7 +10,7 @@
 
 ## 🌐 অ্যাপ লিংক
 
-👉 **[https://maahad01618-collab.github.io/goldadjustment2/](https://maahad01618-collab.github.io/goldadjustment2/)**
+👉 **[https://maahad01618-collab.github.io/goldadjustment-android/](https://maahad01618-collab.github.io/goldadjustment-android/)**
 
 ---
 
@@ -37,12 +37,13 @@
 - ⚖️ **গ্রাম ↔ ভরি** — ওজন রূপান্তর
 - 💰 **দাম / মূল্য হিসাব** — সোনার দাম ও মজুরি হিসাব
 - 🔢 **ক্যালকুলেটর** — সাধারণ হিসাবের জন্য
-- 📈 **আজকের সোনার দর** — বাজুস থেকে সর্বশেষ দর
+- 📈 **আজকের সোনার দর** — বাজুস থেকে সর্বশেষ দর (সরাসরি ওপেন হয়)
 - 🖨️ **প্রিন্ট সুবিধা** — A5 সাইজে ফলাফল প্রিন্ট
+- 📶 **সম্পূর্ণ অফলাইন সাপোর্ট** — ইন্টারনেট ছাড়াও কাজ করে
 
 ---
 
-## 📱 কীভাবে ইনস্টল করবেন (PWA)
+## 📱 কীভাবে ইনস্টল করবেন (PWA — ব্রাউজার থেকে)
 
 1. উপরের লিংকটি মোবাইলের **Chrome** ব্রাউজারে খুলুন
 2. ব্রাউজারের মেনু (⋮) এ ক্লিক করুন
@@ -50,3 +51,8 @@
 4. হোম স্ক্রিনে **GoldAdjustment** আইকন দেখা যাবে
 5. এখন এটি একটি অ্যাপের মতো কাজ করবে — **অফলাইনেও চলবে** ✅
 
+> 💡 শীঘ্রই Google Play Store-এ Android অ্যাপ হিসেবেও পাওয়া যাবে।
+
+---
+
+## 📂 রিপোজিটরি স্ট্রাকচার
