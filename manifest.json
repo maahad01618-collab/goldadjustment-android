@@ -1,7 +1,7 @@
 {
   "name": "GoldAdjustment",
   "short_name": "GoldAdjust",
-  "id": "goldadjustment2",
+  "id": "goldadjustment-android",
   "description": "Gold & Karat Measurement Tool",
   "start_url": "./index.html",
   "scope": "./",
