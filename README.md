@@ -2,7 +2,7 @@
 
 স্বর্ণ (Gold) ব্যবসায়ীদের জন্য একটি সম্পূর্ণ ফ্রি অ্যাডজাস্টমেন্ট ক্যালকুলেটর অ্যাপ।
 
-![Version](https://img.shields.io/badge/Version-2.0-DAA520)
+![Version](https://img.shields.io/badge/Version-1.0-DAA520)
 ![Platform](https://img.shields.io/badge/Platform-PWA-blue)
 ![License](https://img.shields.io/badge/License-Free-green)
 
